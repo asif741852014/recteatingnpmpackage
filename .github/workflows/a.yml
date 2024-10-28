@@ -1,0 +1,27 @@
+name: Package Publish Event Trigger
+
+on:
+  registry_package:
+    types: [published]
+
+jobs:
+  on-package-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Display Package Published Message
+        run: echo "A new package has been published to the GitHub Package Registry!"
+
+      - name: Run additional actions on publish
+        run: |
+          # Here you can add additional steps or scripts 
+          # that should run when a package is published
+          echo "Running custom post-publish tasks..."
