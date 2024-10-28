@@ -1,0 +1,1 @@
+console.log("hai my name is asif printing from github npm package")

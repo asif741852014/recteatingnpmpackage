@@ -1,0 +1,28 @@
+name: Publish npm Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+
+      - name: Log in to GitHub Package Registry
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PERSONAL_ACCESS_TOKEN }}" > ~/.npmrc
+          echo "@asif741852014:registry=https://npm.pkg.github.com" >> ~/.npmrc
+      - name: Publish npm Package
+        run: npm publish --userconfig ~/.npmrc
